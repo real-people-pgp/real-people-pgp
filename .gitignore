@@ -1,0 +1,13 @@
+# PoHpy lib
+pohpylib/target
+pohpylib/venv
+
+# Application
+*/target
+
+
+# Python dev
+venv
+
+# Generated file from example script
+pohpylib/examples/test-file
