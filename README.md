@@ -4,7 +4,7 @@ Creating a secure and trustable foundation for communication in a world increasi
 
 ## Introduction
 
-The public internet is becoming more and more influenced by large language models (LLMs) and AI-driven chatbots. As these technologies advance, distinguishing between human and non-human users becomes increasingly challenging. In response to this growing concern, the Only Real People PGP project aims to create a network of verified human users who have met and established trust in person.
+The public internet is becoming more and more influenced by large language models (LLMs) and AI-driven chatbots. As these technologies advance, distinguishing between human and non-human users becomes increasingly challenging. In response to this, the Real People PGP project aims to create a network of verified human users who have met and established trust in person.
 
 ## Background
 
