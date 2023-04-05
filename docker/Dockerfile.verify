@@ -1,0 +1,39 @@
+# Dockerfile that builds a rust cargo project
+FROM rust:1.68-slim
+
+RUN apt update && apt install -y clang llvm pkg-config nettle-dev
+
+# Create a working directory
+WORKDIR /usr/src/verify
+
+# Copy the Cargo.toml and Cargo.lock files
+COPY app/Cargo.toml ./
+
+# Copy the source code
+COPY app/src ./src
+
+# Rebuild the project
+RUN cargo build --release
+
+RUN find 
+
+# Slimmed image
+FROM busybox:latest
+
+copy --from=0 /usr/src/verify/target/release/server /bin/server
+copy --from=0 /usr/lib/aarch64-linux-gnu/libnettle.so.8 /usr/lib/aarch64-linux-gnu/libnettle.so.8
+copy --from=0 /usr/lib/aarch64-linux-gnu/libhogweed.so.6 /usr/lib/aarch64-linux-gnu/libhogweed.so.6
+copy --from=0 /usr/lib/aarch64-linux-gnu/libgmp.so.10 /usr/lib/aarch64-linux-gnu/libgmp.so.10
+copy --from=0 /lib/aarch64-linux-gnu/libgcc_s.so.1 /lib/aarch64-linux-gnu/libgcc_s.so.1
+copy --from=0 /lib/aarch64-linux-gnu/libpthread.so.0 /lib/aarch64-linux-gnu/libpthread.so.0 
+copy --from=0 /lib/aarch64-linux-gnu/libm.so.6 /lib/aarch64-linux-gnu/libm.so.6
+copy --from=0 /lib/aarch64-linux-gnu/libdl.so.2 /lib/aarch64-linux-gnu/libdl.so.2
+copy --from=0 /lib/aarch64-linux-gnu/libc.so.6 /lib/aarch64-linux-gnu/libc.so.6 
+
+WORKDIR /usr/verify
+
+COPY keys/keyring.asc /usr/verify/keyring.asc
+
+EXPOSE 8883
+
+CMD ["/bin/server", "/usr/verify/keyring.asc", "8883"]
