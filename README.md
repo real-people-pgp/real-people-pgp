@@ -19,9 +19,9 @@ We welcome contributions, ideas, and feedback to help us build a safer and more 
 .. with lots of things to do.
 Summary this far:
 
-* I am the current CA authority.
+* CA authority
   * The CA authority signs your PGP key, and gives you a signed key back
-  * Do you want to be a CA? Let me know. Lets meet.
+  * Do you want to be a CA? Let us know.
   * All CA issuers are provided with name that is trackable in this project.
 * There is a simple server and client program available
   * The idea is to make it possible to host multiple of these servers
