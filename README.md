@@ -37,6 +37,44 @@ cargo build --release
 ./target/release/client ::1 8883 public-key.asc signature.asc 
 ```
 
+This program will only verify signatures that are done by public keys
+that have been signed by a CA authority. represented in among the 
+keys in the keyring keys/keyring.asc
+
+## Current keyring
+
+THis is the current keyring:
+
+```
+$ cat keys/keyring.asc 
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+mDMEZCXYhhYJKwYBBAHaRw8BAQdAa44vN5k1YfDmeTTaTR3Qm3ATkaZY+96Rpw3T
++vykHBK0MlJpY2thcmQgSGFsbGVyYsOkY2sgPHJpY2thcmQuaGFsbGVyYmFja0Bn
+bWFpbC5jb20+iJkEExYKAEEWIQTVT+0BkT4hIK2ds8uwcm1Hgfl59wUCZCXYhgIb
+AwUJA8JnAAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgAAKCRCwcm1Hgfl59xTB
+AP9NtOY7am1kt2abXh7pxDzsuHQQwxt11RCgITiAYlmXGQD8DMZ2lZ60F7w0aX4j
+ZnZO6kKS75wy0XnO6Vv1HL9QKgyIdQQQFgoAHRYhBA+lwjcgRLcc2e4PQmu3CGnV
+OS74BQJkKZ9jAAoJEGu3CGnVOS74qnwBAJDpPD2Wnv8SDVXiRshIFvPRMDHRKCuG
+5j6sCVkZj+1nAQCFdmYtu8c83BFFDsr8p5W2+l+SgWn1u2XQxkvnSV0IArg4BGQl
+2IYSCisGAQQBl1UBBQEBB0CIo41cJVSALGAbr6mdxa1bXD4fs5Gbk0Ktjpsf9U4c
+IQMBCAeIfgQYFgoAJhYhBNVP7QGRPiEgrZ2zy7BybUeB+Xn3BQJkJdiGAhsMBQkD
+wmcAAAoJELBybUeB+Xn3OjYA/RiOvenxZQs6ZkUV35HjmIM3XyylPUc3fIOfBUYC
+eUczAQC7SRdABUOg+0P1cLNNUrJuLtfsnk7duxtdGwRMPTa8BZgzBGQoY10WCSsG
+AQQB2kcPAQEHQBMdFSYbPbnibkujEmK762AcQS9cW+jt+LGpEzuLO+c1tEFPbmx5
+IGh1bWFuIGtleXMgLSBSaWNrYXJkIEhhbGxlcmLDpGNrIDxvbmx5Lmh1bWFuLmtl
+eXNAZ21haWwuY29tPoiZBBMWCgBBFiEED6XCNyBEtxzZ7g9Ca7cIadU5LvgFAmQo
+Y10CGwMFCQPCZwAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQa7cIadU5
+LvgywQD7BDMDFexIofT8MMedCchrDx59XnJaxOSSe+bFCUuZ+mcA/35dvD5WAcxu
+Dh9t9y+P3tgtTc+K/rpCjiSVE+QP2jIMuDgEZChjXRIKKwYBBAGXVQEFAQEHQEwj
+4AOM0O0zc3sN7ziAGR002fUOQNNTCQMyIJz2nr9mAwEIB4h+BBgWCgAmFiEED6XC
+NyBEtxzZ7g9Ca7cIadU5LvgFAmQoY10CGwwFCQPCZwAACgkQa7cIadU5LvjikAEA
+0zf7/5O5GSbe55VRwpxzbgFXonnD306u2I61K7AQI3IBAP50WXnsLx/FLXVM2Ftu
+bsa7EUdfuqn4lq7yB3vX310I
+=UHXv
+-----END PGP PUBLIC KEY BLOCK-----
+```
+
 # A work in progress
 
 .. with lots of things to do.
