@@ -42,5 +42,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .join_metadata_result()
         .await?;
     println!("Valid: {}, info: {}", resp.1.valid, resp.1.info);
+    if !resp.1.valid {
+        Err("Invalid signature")?
+    }
     Ok(())
 }

@@ -7,9 +7,9 @@ use crate::openpgp::policy::Policy;
 use crate::openpgp::policy::StandardPolicy as P;
 use crate::openpgp::serialize::stream::*;
 use anyhow::*;
+use chrono::Local;
 use openpgp::parse::PacketParser;
 use sequoia_openpgp as openpgp;
-use chrono::Local;
 
 use std::env;
 
@@ -127,9 +127,11 @@ impl PoH for MyPoH {
             for certo in CertParser::from(ppr.unwrap()) {
                 match certo {
                     Ok(cert) => {
-                        println!("{} - incoming key {}",
-                                  Local::now().format("%Y-%m-%d %H:%M:%S"),
-                                  cert.fingerprint());
+                        println!(
+                            "{} - incoming key {}",
+                            Local::now().format("%Y-%m-%d %H:%M:%S"),
+                            cert.fingerprint()
+                        );
                         incoming_cert = Some(cert);
                         break;
                     }
