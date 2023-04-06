@@ -43,7 +43,7 @@ keys in the keyring keys/keyring.asc
 
 ## Current keyring
 
-THis is the current keyring:
+This is the current keyring:
 
 ```
 $ cat keys/keyring.asc 
