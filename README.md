@@ -14,6 +14,29 @@ While technical solutions to verify human users are essential, sometimes the bes
 
 We welcome contributions, ideas, and feedback to help us build a safer and more secure internet for everyone. Join us in our mission to create a network of verified human users and safeguard online communication against the growing presence of AI and chatbots.
 
+## Host a verification server locally
+
+```
+git clone https://github.com/real-people-pgp/real-people-pgp.git
+cd real-people-pgp
+docker compose build
+docker compose up -d
+```
+
+Now a signature verification server is running on port 8883.
+It exposes an gRPC API defined in app/proto/poh.proto .
+
+### Checking validity using a client program
+
+You should provide a public PGP key and a PGP signature to check
+its validity. 
+
+```
+cd app
+cargo build --release
+./target/release/client ::1 8883 public-key.asc signature.asc 
+```
+
 # A work in progress
 
 .. with lots of things to do.
