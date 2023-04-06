@@ -14,6 +14,7 @@ syntax = "proto3";
  // argument
  message VerifyAttachedSignatureRequest {
    string file_attached_signature = 1;
+   string public_key = 2;
  }
  // argument
  message VerifyDetachedSignatureRequest {

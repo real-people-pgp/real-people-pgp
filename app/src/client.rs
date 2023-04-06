@@ -14,6 +14,8 @@ struct Cli {
     host: String,
     /// host port
     port: u16,
+    /// public_key to check
+    public_key: String,
     /// signature to check
     signature: String,
 }
@@ -24,6 +26,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let host = args.host;
     let signature = args.signature;
+    let public_key = std::fs::read_to_string(args.public_key).expect("Unable to read file");
     let port = args.port;
 
     let mut req = VerifyAttachedSignatureRequest::new();
@@ -31,6 +34,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = PoHClient::new_plain(&host, port, Default::default()).unwrap();
     req.set_file_attached_signature(signature);
+    req.set_public_key(public_key);
 
     // send the request
     let resp = client

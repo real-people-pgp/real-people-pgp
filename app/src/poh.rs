@@ -27,6 +27,7 @@
 pub struct VerifyAttachedSignatureRequest {
     // message fields
     pub file_attached_signature: ::std::string::String,
+    pub public_key: ::std::string::String,
     // special fields
     pub unknown_fields: ::protobuf::UnknownFields,
     pub cached_size: ::protobuf::CachedSize,
@@ -68,6 +69,32 @@ impl VerifyAttachedSignatureRequest {
     pub fn take_file_attached_signature(&mut self) -> ::std::string::String {
         ::std::mem::replace(&mut self.file_attached_signature, ::std::string::String::new())
     }
+
+    // string public_key = 2;
+
+
+    pub fn get_public_key(&self) -> &str {
+        &self.public_key
+    }
+    pub fn clear_public_key(&mut self) {
+        self.public_key.clear();
+    }
+
+    // Param is passed by value, moved
+    pub fn set_public_key(&mut self, v: ::std::string::String) {
+        self.public_key = v;
+    }
+
+    // Mutable pointer to the field.
+    // If field is not initialized, it is initialized with default value first.
+    pub fn mut_public_key(&mut self) -> &mut ::std::string::String {
+        &mut self.public_key
+    }
+
+    // Take field
+    pub fn take_public_key(&mut self) -> ::std::string::String {
+        ::std::mem::replace(&mut self.public_key, ::std::string::String::new())
+    }
 }
 
 impl ::protobuf::Message for VerifyAttachedSignatureRequest {
@@ -81,6 +108,9 @@ impl ::protobuf::Message for VerifyAttachedSignatureRequest {
             match field_number {
                 1 => {
                     ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.file_attached_signature)?;
+                },
+                2 => {
+                    ::protobuf::rt::read_singular_proto3_string_into(wire_type, is, &mut self.public_key)?;
                 },
                 _ => {
                     ::protobuf::rt::read_unknown_or_skip_group(field_number, wire_type, is, self.mut_unknown_fields())?;
@@ -97,6 +127,9 @@ impl ::protobuf::Message for VerifyAttachedSignatureRequest {
         if !self.file_attached_signature.is_empty() {
             my_size += ::protobuf::rt::string_size(1, &self.file_attached_signature);
         }
+        if !self.public_key.is_empty() {
+            my_size += ::protobuf::rt::string_size(2, &self.public_key);
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.get_unknown_fields());
         self.cached_size.set(my_size);
         my_size
@@ -105,6 +138,9 @@ impl ::protobuf::Message for VerifyAttachedSignatureRequest {
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::ProtobufResult<()> {
         if !self.file_attached_signature.is_empty() {
             os.write_string(1, &self.file_attached_signature)?;
+        }
+        if !self.public_key.is_empty() {
+            os.write_string(2, &self.public_key)?;
         }
         os.write_unknown_fields(self.get_unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -149,6 +185,11 @@ impl ::protobuf::Message for VerifyAttachedSignatureRequest {
                 |m: &VerifyAttachedSignatureRequest| { &m.file_attached_signature },
                 |m: &mut VerifyAttachedSignatureRequest| { &mut m.file_attached_signature },
             ));
+            fields.push(::protobuf::reflect::accessor::make_simple_field_accessor::<_, ::protobuf::types::ProtobufTypeString>(
+                "public_key",
+                |m: &VerifyAttachedSignatureRequest| { &m.public_key },
+                |m: &mut VerifyAttachedSignatureRequest| { &mut m.public_key },
+            ));
             ::protobuf::reflect::MessageDescriptor::new_pb_name::<VerifyAttachedSignatureRequest>(
                 "VerifyAttachedSignatureRequest",
                 fields,
@@ -166,6 +207,7 @@ impl ::protobuf::Message for VerifyAttachedSignatureRequest {
 impl ::protobuf::Clear for VerifyAttachedSignatureRequest {
     fn clear(&mut self) {
         self.file_attached_signature.clear();
+        self.public_key.clear();
         self.unknown_fields.clear();
     }
 }
@@ -578,16 +620,17 @@ impl ::protobuf::reflect::ProtobufValue for VerifyResponse {
 }
 
 static file_descriptor_proto_data: &'static [u8] = b"\
-    \n\x0fproto/poh.proto\x12\x03poh\"X\n\x1eVerifyAttachedSignatureRequest\
+    \n\x0fproto/poh.proto\x12\x03poh\"w\n\x1eVerifyAttachedSignatureRequest\
     \x126\n\x17file_attached_signature\x18\x01\x20\x01(\tR\x15fileAttachedSi\
-    gnature\"t\n\x1eVerifyDetachedSignatureRequest\x12-\n\x12detached_signat\
-    ure\x18\x01\x20\x01(\tR\x11detachedSignature\x12#\n\rfile_contents\x18\
-    \x02\x20\x01(\tR\x0cfileContents\":\n\x0eVerifyResponse\x12\x14\n\x05val\
-    id\x18\x01\x20\x01(\x08R\x05valid\x12\x12\n\x04info\x18\x02\x20\x01(\tR\
-    \x04info2\xb3\x01\n\x03PoH\x12U\n\x19verify_attached_signature\x12#.poh.\
-    VerifyAttachedSignatureRequest\x1a\x13.poh.VerifyResponse\x12U\n\x19veri\
-    fy_detached_signature\x12#.poh.VerifyDetachedSignatureRequest\x1a\x13.po\
-    h.VerifyResponseb\x06proto3\
+    gnature\x12\x1d\n\npublic_key\x18\x02\x20\x01(\tR\tpublicKey\"t\n\x1eVer\
+    ifyDetachedSignatureRequest\x12-\n\x12detached_signature\x18\x01\x20\x01\
+    (\tR\x11detachedSignature\x12#\n\rfile_contents\x18\x02\x20\x01(\tR\x0cf\
+    ileContents\":\n\x0eVerifyResponse\x12\x14\n\x05valid\x18\x01\x20\x01(\
+    \x08R\x05valid\x12\x12\n\x04info\x18\x02\x20\x01(\tR\x04info2\xb3\x01\n\
+    \x03PoH\x12U\n\x19verify_attached_signature\x12#.poh.VerifyAttachedSigna\
+    tureRequest\x1a\x13.poh.VerifyResponse\x12U\n\x19verify_detached_signatu\
+    re\x12#.poh.VerifyDetachedSignatureRequest\x1a\x13.poh.VerifyResponseb\
+    \x06proto3\
 ";
 
 static file_descriptor_proto_lazy: ::protobuf::rt::LazyV2<::protobuf::descriptor::FileDescriptorProto> = ::protobuf::rt::LazyV2::INIT;

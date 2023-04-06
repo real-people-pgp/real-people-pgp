@@ -7,7 +7,9 @@ use crate::openpgp::policy::Policy;
 use crate::openpgp::policy::StandardPolicy as P;
 use crate::openpgp::serialize::stream::*;
 use anyhow::*;
+use openpgp::parse::PacketParser;
 use sequoia_openpgp as openpgp;
+use chrono::Local;
 
 use std::env;
 
@@ -22,22 +24,31 @@ mod poh_grpc;
 use grpc::{ServerHandlerContext, ServerRequestSingle, ServerResponseUnarySink};
 
 use std::cell::RefCell;
+use std::str::FromStr;
 use std::sync::{Arc, Mutex};
-
-const MESSAGE: &str = "дружба";
 
 struct MyPoH {
     keyring: Arc<Mutex<Vec<Cert>>>,
 }
 
 impl MyPoH {
-    fn process_attached_signature(&self, signature: &str) -> Result<(), ()> {
+    fn process_attached_signature(&self, public_key: &Cert, signature: &str) -> Result<(), ()> {
         let mut good = false;
+        let included_signatures = Self::extract_signatures(public_key);
         let binding = self.keyring.lock().unwrap();
+        // Check if signed by any of ours will do
+        let mut signed_by_us = false;
         for cert in binding.iter() {
+            let f = cert.fingerprint();
+            if included_signatures.contains(&f.to_string()) {
+                signed_by_us = true;
+                break;
+            }
+        }
+        if signed_by_us {
             let p = &P::new();
             let mut plaintext = Vec::new();
-            match verify(p, &mut plaintext, &signature.as_bytes(), &cert) {
+            match verify(p, &mut plaintext, &signature.as_bytes(), &public_key) {
                 Ok(()) => {
                     good = true;
                 }
@@ -50,6 +61,55 @@ impl MyPoH {
             Err(())
         }
     }
+
+    fn extract_signatures(cert: &Cert) -> Vec<String> {
+        // Primary key and related signatures.
+        let mut v = Vec::<String>::new();
+        let c = cert.primary_key();
+        for s in c.self_signatures() {
+            for f in s.issuer_fingerprints() {
+                v.push(f.to_string());
+            }
+        }
+
+        // UserIDs and related signatures.
+        for c in cert.userids() {
+            for s in c.self_signatures() {
+                for f in s.issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
+        }
+
+        // UserAttributes and related signatures.
+        for c in cert.user_attributes() {
+            for s in c.self_signatures() {
+                for f in s.clone().issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
+        }
+
+        // Subkeys and related signatures.
+        for c in cert.keys().subkeys() {
+            for s in c.self_signatures() {
+                for f in s.clone().issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
+        }
+
+        // Unknown components and related signatures.
+        for c in cert.unknowns() {
+            for s in c.self_signatures() {
+                for f in s.clone().issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
+        }
+
+        return v;
+    }
 }
 
 impl PoH for MyPoH {
@@ -60,9 +120,33 @@ impl PoH for MyPoH {
         resp: ServerResponseUnarySink<VerifyResponse>,
     ) -> grpc::Result<()> {
         let mut r = VerifyResponse::new();
-        if self
-            .process_attached_signature(&req.message.file_attached_signature)
-            .is_ok()
+        let public_key = req.message.public_key;
+        let mut incoming_cert: Option<Cert> = None;
+        let ppr = PacketParser::from_bytes(&public_key);
+        if ppr.is_ok() {
+            for certo in CertParser::from(ppr.unwrap()) {
+                match certo {
+                    Ok(cert) => {
+                        println!("{} - incoming key {}",
+                                  Local::now().format("%Y-%m-%d %H:%M:%S"),
+                                  cert.fingerprint());
+                        incoming_cert = Some(cert);
+                        break;
+                    }
+                    Err(err) => {
+                        eprintln!("Error reading keyring: {}", err);
+                    }
+                }
+            }
+        }
+
+        if incoming_cert.is_some()
+            && self
+                .process_attached_signature(
+                    &incoming_cert.unwrap(),
+                    &req.message.file_attached_signature,
+                )
+                .is_ok()
         {
             r.set_valid(true);
             r.set_info("Valid signature".to_string());

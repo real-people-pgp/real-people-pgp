@@ -1,12 +1,3 @@
-# Docker compose file with two services
-# One building the image specified in the 
-# build file docker/Dockerfile.pgp using
-# context '.' named "gpg-terminal", launch
-# script is bash.
-# The other one is named "pgp-verify" and it
-# uses build file docker/Dockerfile.veriy and 
-# context './app'.
-
 version: '3.7'
 
 services:
@@ -21,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile.verify
-    network_mode: "host"
+    ports:
+      - "8883:8883"
 
 

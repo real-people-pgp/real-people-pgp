@@ -17,6 +17,7 @@ sequoia-openpgp = "1.14.0"
 anyhow = "1.0.70"
 grpc ="*"
 grpc-protobuf="*"
+chrono = "*"
 protobuf = "2"
 clap = { version = "4.0", features = ["derive"] }
 tokio = { version = "1.12.0", features = ["full"] } # for our async runtime    
