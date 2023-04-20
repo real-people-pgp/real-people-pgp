@@ -11,3 +11,5 @@ venv
 
 # Generated file from example script
 pohpylib/examples/test-file
+
+local-hide
