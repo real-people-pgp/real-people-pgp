@@ -34,7 +34,7 @@ gpg --list-sigs ID
 # Check signatures of a key
 gpg --check-sigs ID
 # Sign a file, create a file signature with key ID
-gpg --local-user ID --sign FILENAME
+gpg --local-user ID -a --sign FILENAME
 # Verify file signature
 gpg --verify FILENAME
 ```
@@ -71,6 +71,8 @@ It exposes an gRPC API defined in app/proto/poh.proto .
 
 ### Checking validity using a client program
 
+After having launched the verification server as described in the previous section
+you can now check that file signatures are signed by keys from who we believe to be people.
 You should provide a public PGP key and a PGP signature to check
 its validity. 
 

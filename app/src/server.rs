@@ -23,18 +23,21 @@ mod poh;
 mod poh_grpc;
 use grpc::{ServerHandlerContext, ServerRequestSingle, ServerResponseUnarySink};
 
-use std::cell::RefCell;
-use std::str::FromStr;
 use std::sync::{Arc, Mutex};
 
 struct MyPoH {
+    // A thread-safe vector of Certificates
     keyring: Arc<Mutex<Vec<Cert>>>,
 }
 
 impl MyPoH {
+    // Processes an attached signature
+    // Returns Ok(()) if the signature is valid and signed by any of the certificates in the keyring
+    // Returns Err(()) otherwise
     fn process_attached_signature(&self, public_key: &Cert, signature: &str) -> Result<(), ()> {
         let mut good = false;
         let included_signatures = Self::extract_signatures(public_key);
+        // Our trusted POH keyring
         let binding = self.keyring.lock().unwrap();
         // Check if signed by any of ours will do
         let mut signed_by_us = false;
@@ -62,6 +65,7 @@ impl MyPoH {
         }
     }
 
+    // Extracts all the signature fingerprints from a certificate
     fn extract_signatures(cert: &Cert) -> Vec<String> {
         // Primary key and related signatures.
         let mut v = Vec::<String>::new();
@@ -79,6 +83,11 @@ impl MyPoH {
                     v.push(f.to_string());
                 }
             }
+            for s in c.signatures() {
+                for f in s.issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
         }
 
         // UserAttributes and related signatures.
@@ -88,11 +97,21 @@ impl MyPoH {
                     v.push(f.to_string());
                 }
             }
+            for s in c.signatures() {
+                for f in s.clone().issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
         }
 
         // Subkeys and related signatures.
         for c in cert.keys().subkeys() {
             for s in c.self_signatures() {
+                for f in s.clone().issuer_fingerprints() {
+                    v.push(f.to_string());
+                }
+            }
+            for s in c.signatures() {
                 for f in s.clone().issuer_fingerprints() {
                     v.push(f.to_string());
                 }
@@ -112,6 +131,7 @@ impl MyPoH {
     }
 }
 
+// Implementation of PoH (Proof of Human) trait for MyPoH struct
 impl PoH for MyPoH {
     fn verify_attached_signature(
         &self,
@@ -123,8 +143,11 @@ impl PoH for MyPoH {
         let public_key = req.message.public_key;
         let mut incoming_cert: Option<Cert> = None;
         let ppr = PacketParser::from_bytes(&public_key);
+ 
         if ppr.is_ok() {
+            // Iterate over the CertParser from the PacketParser
             for certo in CertParser::from(ppr.unwrap()) {
+                // Match the CertParser result
                 match certo {
                     Ok(cert) => {
                         println!(
@@ -133,9 +156,11 @@ impl PoH for MyPoH {
                             cert.fingerprint()
                         );
                         incoming_cert = Some(cert);
+                        // Break out of the loop
                         break;
                     }
                     Err(err) => {
+                        // Print the error message
                         eprintln!("Error reading keyring: {}", err);
                     }
                 }
@@ -156,17 +181,22 @@ impl PoH for MyPoH {
             r.set_valid(false);
             r.set_info("Invalid signature".to_string());
         }
+        // Finish the response
         resp.finish(r)
     }
+
+    // TODO: Verify detached signature function
     fn verify_detached_signature(
         &self,
         _: ServerHandlerContext,
         _req: ServerRequestSingle<VerifyDetachedSignatureRequest>,
         resp: ServerResponseUnarySink<VerifyResponse>,
     ) -> grpc::Result<()> {
+        // Create a new VerifyResponse
         let mut r = VerifyResponse::new();
         r.set_info("Not implemented yet".to_string());
         r.set_valid(false);
+        // Finish the response
         resp.finish(r)
     }
 }
