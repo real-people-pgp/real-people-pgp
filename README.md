@@ -1,14 +1,57 @@
 # Only Real People PGP
 
-Creating a secure and trustable foundation for communication in a world increasingly dominated by chatbots and AI, by leveraging OpenPGP and real-world human connections.
+Naive attempt to create a secure and trustable foundation for communication in a world increasingly dominated by chatbots and AI, by leveraging OpenPGP and real-world human connections.
 
 ## Introduction
 
-The public internet is becoming more and more influenced by large language models (LLMs) and AI-driven chatbots. As these technologies advance, distinguishing between human and non-human users becomes increasingly challenging. In response to this, the Real People PGP project aims to create a network of verified human users who have met and established trust in person.
+The public internet is becoming more and more influenced by large language models (LLMs) and AI-driven chatbots. As these technologies advance, distinguishing between human and non-human users becomes impossible unless we do something. In response to this, the Real People PGP project aims to create a network of verified human users who have met and established trust in person.
 
 ## Background
 
-While technical solutions to verify human users are essential, sometimes the best approach is a combination of technology and social interaction. OpenPGP, a widely-used encryption standard, serves as the foundation of this project. By encouraging human users to meet and verify each other in the real world, we can create a more trustworthy network, ensuring that the person on the other end of the conversation is indeed human.
+While technical solutions to verify human users are essential, we think that at present, the best approach is a combination of technology and social interaction. OpenPGP, a widely-used encryption standard, serves as the foundation of this project. By encouraging human users to meet and verify each other in the real world, we can create a more trustworthy network, ensuring that the person on the other end of the conversation is indeed human.
+
+## Creating OpenPGP keys with GPG
+
+In case you aren't familiar with OpenPGP, here is a collection of commands.
+Here are some basic commands you can use to create your PGP key using GPG (GNU Privacy Guard).
+
+````bash
+# Create a key, 4096 key length is adviced
+# Make it valid at least a year.
+gpg --full-generate-key
+# List your keys, find its ID 
+gpg --list-keys
+# Export your public key in ascii
+gpg --export --armor ID
+# Import another key
+gpg --import key
+# Import this projects keys
+gpg --import keys/keyring.asc
+# Get key fingerprint
+gpg --fingerprint ID
+# List signatures a key
+gpg --list-sigs ID
+# Check signatures of a key
+gpg --check-sigs ID
+# Sign a file, create a file signature with key ID
+gpg --local-user ID --sign FILENAME
+# Verify file signature
+gpg --verify FILENAME
+```
+
+In case you trust this project, maybe a person in real life told you about it or offered to sign your keys.
+It might be OK to elevate the trust level of the key you got from the person or from this entire keyring.
+
+Keys from individuals who are in line with this project can be found under the [keys/poh_pgps](https://github.com/real-people-pgp/real-people-pgp/tree/main/keys/poh_pgps) folder in the project.
+The name of the file in there, should make it obvious to you who it belongs to.
+
+Elevate trust levels like this:
+
+```bash
+gpg --edit-key ID
+# At the GPG prompt, type the following command to set the trust level to ultimate:
+trust
+```
 
 ## Get Involved
 
