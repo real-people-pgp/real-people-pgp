@@ -15,7 +15,7 @@ While technical solutions to verify human users are essential, we think that at 
 In case you aren't familiar with OpenPGP, here is a collection of commands.
 Here are some basic commands you can use to create your PGP key using GPG (GNU Privacy Guard).
 
-````bash
+```bash
 # Create a key, 4096 key length is adviced
 # Make it valid at least a year.
 gpg --full-generate-key
