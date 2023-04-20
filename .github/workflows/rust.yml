@@ -15,8 +15,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Install libnettle-dev
-        run: sudo apt-get install libnettle-dev
+      - name: Install nettle-dev
+        run: sudo apt-get install nettle-dev
       - name: Build
         run: cd app && cargo build --verbose
       - name: Run tests
