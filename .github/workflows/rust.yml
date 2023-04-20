@@ -11,13 +11,13 @@ env:
 
 jobs:
   build:
-runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-steps:
-- uses: actions/checkout@v3
-- name: Install libnettle-dev
-  run: sudo apt-get install libnettle-dev
-- name: Build
-  run: cd app && cargo build --verbose
-- name: Run tests
-  run: cd app && cargo test --verbose
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install libnettle-dev
+        run: sudo apt-get install libnettle-dev
+      - name: Build
+        run: cd app && cargo build --verbose
+      - name: Run tests
+        run: cd app && cargo test --verbose
