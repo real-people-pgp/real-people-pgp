@@ -8,7 +8,7 @@ The public internet is becoming more and more influenced by large language model
 
 ## Background
 
-While technical solutions to verify human users are essential, we think that at present, the best approach is a combination of technology and social interaction. OpenPGP, a widely-used encryption standard, serves as the foundation of this project. By encouraging human users to meet and verify each other in the real world, we can create a more trustworthy network, ensuring that the person on the other end of the conversation is indeed human.
+Standard technical solutions to verify human users are becoming obsolete, we think that at present, the best approach is a combination of technology and social interaction. OpenPGP, a widely-used encryption standard, serves as the foundation of this project. By encouraging human users to meet and verify each other in the real world, we can create a more trustworthy network, ensuring that the person on the other end of the conversation is indeed human.
 
 ## Creating OpenPGP keys with GPG
 
