@@ -175,25 +175,23 @@ buyds19HjJRB+il86Of3nJFzQ0XYNnJs9PEGuJRGlkmoiNY2FYAOfkfcM6Tpu2Ik
 -----END PGP PUBLIC KEY BLOCK-----
 ```
 
+# Can I trust this?
+
+As long as you trust the people behind this project to actually
+only verify keys given from of people they've met in real life,
+this is actually a simple and solid web of trust. Adjust your
+trust level based on the people behind this project.
+
+The CA authorities to this day use these mail addresses:
+
+* only.human.keys@gmail.com (Rickard Hallerbäck)
+  * 0232 CB22 8626 389F 1448  323C 2A17 0251 438F A1D1
+
 # A work in progress
 
-.. with lots of things to do.
-Summary this far:
-
-* CA authority
-  * The CA authority signs your PGP key, and gives you a signed key back
-  * Do you want to be a CA? Let us know.
-  * All CA issuers are provided with name that is trackable in this project.
-* There is a simple server and client program available
-  * The idea is to make it possible to host multiple of these servers
-  * The server checks signature validity
-* Clients use a list of domain names for hosts that is provided here, but localhost should work if the server is running and you have the latest version on it (which might be hard to guarantee, but things move slow).
-
-# Todo
+We look forward to implement these features:
 
 * Domain names list and signature
 * TLS over the middleware
-* Change so that this is based on OpenPGP instead
-* Domain hosting, domain list with signatures
 
 
