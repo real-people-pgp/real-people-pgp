@@ -12,6 +12,33 @@ While technical solutions to verify human users are essential, we think that at 
 
 ## Creating OpenPGP keys with GPG
 
+GPG is a terminal command line interface program. As far as we know, there are no user friendlier alternatives.
+Don't be afraid of the terminal. It is very useful!
+Install GPG on your system. I will describe how this is done in Linux and MacOSX systems below.
+Please consult Google or ChatGPT++ if you have more questions. 
+
+### Installing GPG on a Mac 
+
+You need to install homebrew. Open a terminal:
+
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+Now install GPG:
+
+```
+brew install gnupg
+```
+
+### Install GPG on Linux (on a Debian distribution)
+
+```
+sudo apt install -y gnupg
+```
+
+## Using GPG
+
 In case you aren't familiar with OpenPGP, here is a collection of commands.
 Here are some basic commands you can use to create your PGP key using GPG (GNU Privacy Guard).
 
