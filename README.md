@@ -178,7 +178,7 @@ buyds19HjJRB+il86Of3nJFzQ0XYNnJs9PEGuJRGlkmoiNY2FYAOfkfcM6Tpu2Ik
 # Can I trust this?
 
 As long as you trust the people behind this project to actually
-only verify keys given from of people they've met in real life,
+only verify keys given from people they've met in real life,
 this is actually a simple and solid web of trust. Adjust your
 trust level based on the people behind this project.
 
@@ -193,5 +193,7 @@ We look forward to implement these features:
 
 * Domain names list and signature
 * TLS over the middleware
+* User friendly UI where public keys and signature files can be checked
+
 
 
