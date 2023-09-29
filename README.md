@@ -84,34 +84,8 @@ trust
 
 We welcome contributions, ideas, and feedback to help us build a safer and more secure internet for everyone. Join us in our mission to create a network of verified human users and safeguard online communication against the growing presence of AI and chatbots.
 
-## Host a verification server locally
-
-```
-git clone https://github.com/real-people-pgp/real-people-pgp.git
-cd real-people-pgp
-docker compose build
-docker compose up -d
-```
-
-Now a signature verification server is running on port 8883.
-It exposes an gRPC API defined in app/proto/poh.proto .
-
-### Checking validity using a client program
-
-After having launched the verification server as described in the previous section
-you can now check that file signatures are signed by keys from who we believe to be people.
-You should provide a public PGP key and a PGP signature to check
-its validity. 
-
-```
-cd app
-cargo build --release
-./target/release/client ::1 8883 public-key.asc signature.asc 
-```
-
-This program will only verify signatures that are done by public keys
-that have been signed by a CA authority. represented in among the 
-keys in the keyring keys/keyring.asc
+Contact us by getting in touch with our current sole CA authority Rickard Hallerbäck at 
+rickard.hallerback@gmail.com .
 
 ## Current keyring
 
@@ -187,19 +161,42 @@ The CA authorities to this day use these mail addresses:
 * only.human.keys@gmail.com (Rickard Hallerbäck)
   * 0232 CB22 8626 389F 1448  323C 2A17 0251 438F A1D1
 
-# Check a PGP key
+# Verify a PGP key
 
-If you want to check that a PGP key has been signed by any of people
-this simple web page was developed for that purpose:
+Should you wish to verify whether a PGP key has received a signature from any member of our team, this straightforward webpage has been designed for this specific purpose:
 
 https://real-people-pgp.ricardicus.se
 
-It is hosted and developed by our CA authority Rickard Hallerbäck.
+This page is hosted and developed by our CA authority, Rickard Hallerbäck.
 
-# Jois us
+## Host a verification server locally
 
-Join us by reaching out to our currently only CA authority Rickard Hallerbäck at 
-rickard.hallerback@gmail.com .
+```
+git clone https://github.com/real-people-pgp/real-people-pgp.git
+cd real-people-pgp
+docker compose build
+docker compose up -d
+```
+
+Now a signature verification server is running on port 8883.
+It exposes an gRPC API defined in app/proto/poh.proto .
+
+### Checking validity using a client program
+
+After having launched the verification server as described in the previous section
+you can now check that file signatures are signed by keys from who we believe to be people.
+You should provide a public PGP key and a PGP signature to check
+its validity. 
+
+```
+cd app
+cargo build --release
+./target/release/client ::1 8883 public-key.asc signature.asc 
+```
+
+This program will only verify signatures that are done by public keys
+that have been signed by a CA authority. represented in among the 
+keys in the keyring keys/keyring.asc
 
 # A work in progress
 
