@@ -187,12 +187,25 @@ The CA authorities to this day use these mail addresses:
 * only.human.keys@gmail.com (Rickard Hallerbäck)
   * 0232 CB22 8626 389F 1448  323C 2A17 0251 438F A1D1
 
+# Check a PGP key
+
+If you want to check that a PGP key has been signed by any of people
+this simple web page was developed for that purpose:
+
+https://real-people-pgp.ricardicus.se
+
+It is hosted and developed by our CA authority Rickard Hallerbäck.
+
+# Jois us
+
+Join us by reaching out to our currently only CA authority Rickard Hallerbäck at 
+rickard.hallerback@gmail.com .
+
 # A work in progress
 
 We look forward to implement these features:
 
 * Domain names list and signature
-* TLS over the middleware
 * User friendly UI where public keys and signature files can be checked
 
 
