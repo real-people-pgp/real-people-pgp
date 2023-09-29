@@ -82,7 +82,7 @@ trust
 
 ## Get Involved
 
-We welcome contributions, ideas, and feedback to help us build a safer and more secure internet for everyone. Join us in our mission to create a network of verified human users and safeguard online communication against the growing presence of AI and chatbots.
+We welcome contributions, ideas, and feedback to help us build a safer and more secure internet for everyone. Join us in our mission to create a network of verified human users and safeguard online communication against the growing presence of bots.
 
 Contact us by getting in touch with our current sole CA authority Rickard Hallerbäck at 
 rickard.hallerback@gmail.com .
