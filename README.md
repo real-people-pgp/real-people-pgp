@@ -1,6 +1,6 @@
 # Only Real People PGP
 
-Naive attempt to create a secure and trustable foundation for communication in a world increasingly dominated by chatbots and AI, based on OpenPGP and real-world human connections.
+Naive attempt to create a secure and trustable foundation for communication between people in a digital world increasingly dominated by bots based on OpenPGP and verified real world human connections.
 
 ## Introduction
 
